@@ -34,7 +34,7 @@ func NewS3(bucket, accessId, secret string) *S3 {
 		bucket:   bucket,
 		accessId: accessId,
 		secret:   secret,
-		endpoint: fmt.Sprintf("%s.s3.amazonaws.com", bucket),
+		endpoint: fmt.Sprintf("10.130.44.141:9982/%s", bucket),
 	}
 }
 
@@ -101,7 +101,7 @@ func (s3 *S3) signRequest(req *http.Request) {
 }
 
 func (s3 *S3) resource(path string, values url.Values) string {
-	tmp := fmt.Sprintf("https://%s/%s", s3.endpoint, path)
+	tmp := fmt.Sprintf("http://%s/%s", s3.endpoint, path)
 
 	if values != nil {
 		tmp += "?" + values.Encode()
@@ -299,7 +299,7 @@ func (s3 *S3) Test() error {
 		return fmt.Errorf("String read back from S3 was different than what we put there.")
 	}
 
-	if header.Get("Content-Type") != "text/x-empty" {
+	if header.Get("Content-Type") != "text/x-empty; charset=utf-8" {
 		return fmt.Errorf("Content served back from S3 had a different Content-Type than what we put there")
 	}
 

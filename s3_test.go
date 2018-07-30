@@ -3,14 +3,12 @@ package s3
 import (
 	"bytes"
 	"io/ioutil"
-	"os"
-	"strings"
 	"testing"
 )
 
-var accessId = strings.TrimSpace(os.ExpandEnv("$S3_ACCESS_ID"))
-var secretKey = strings.TrimSpace(os.ExpandEnv("$S3_SECRET_KEY"))
-var bucket = strings.TrimSpace(os.ExpandEnv("$S3_BUCKET"))
+var accessId = "123"
+var secretKey = "123"
+var bucket = "s3-test"
 
 func getS3(t *testing.T) *S3 {
 	if accessId == "" {
