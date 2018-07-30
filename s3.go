@@ -29,12 +29,12 @@ type S3 struct {
 }
 
 // NewS3 allocates a new S3 with the provided credentials.
-func NewS3(bucket, accessId, secret string) *S3 {
+func NewS3(bucket, accessId, secret, endpoint string) *S3 {
 	return &S3{
 		bucket:   bucket,
 		accessId: accessId,
 		secret:   secret,
-		endpoint: fmt.Sprintf("10.130.44.141:9982/%s", bucket),
+		endpoint: endpoint,
 	}
 }
 
@@ -101,7 +101,7 @@ func (s3 *S3) signRequest(req *http.Request) {
 }
 
 func (s3 *S3) resource(path string, values url.Values) string {
-	tmp := fmt.Sprintf("http://%s/%s", s3.endpoint, path)
+	tmp := fmt.Sprintf("http://%s/%s/%s", s3.endpoint, s3.bucket, path)
 
 	if values != nil {
 		tmp += "?" + values.Encode()

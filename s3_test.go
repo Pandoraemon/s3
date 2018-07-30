@@ -6,9 +6,10 @@ import (
 	"testing"
 )
 
-var accessId = "123"
-var secretKey = "123"
-var bucket = "s3-test"
+var accessId = ""
+var secretKey = ""
+var bucket = ""
+var endpoint = ""
 
 func getS3(t *testing.T) *S3 {
 	if accessId == "" {
@@ -23,7 +24,7 @@ func getS3(t *testing.T) *S3 {
 		t.Fatalf("Must set S3_BUCKET in ENV")
 	}
 
-	return NewS3(bucket, accessId, secretKey)
+	return NewS3(bucket, accessId, secretKey, endpoint)
 }
 
 func TestS3(t *testing.T) {
